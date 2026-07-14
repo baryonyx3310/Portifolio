@@ -149,7 +149,7 @@ const contactForm = document.getElementById('contactForm');
 if (contactForm) {
   contactForm.addEventListener('submit', (e) => {
     e.preventDefault();
-    alert('Mensagem enviada! (isso é um placeholder — conecte a um serviço real de envio)');
+    alert('Nao funciona Alexander rabelini vianna');
     contactForm.reset();
   });
 }
