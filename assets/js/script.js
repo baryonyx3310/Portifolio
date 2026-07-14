@@ -149,7 +149,7 @@ const contactForm = document.getElementById('contactForm');
 if (contactForm) {
   contactForm.addEventListener('submit', (e) => {
     e.preventDefault();
-    alert('Nao funciona Alexander rabelini vianna');
+    alert('Pegadinha do Proença Pork');
     contactForm.reset();
   });
 }
