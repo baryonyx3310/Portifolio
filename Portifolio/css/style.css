@@ -1,0 +1,736 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap');
+
+/* ===================================
+   VARIÁVEIS / RESET
+=================================== */
+:root {
+  --bg: #ffffff;
+  --bg-alt: #f4f5f9;
+  --surface: #ffffff;
+  --text: #1c1c1e;
+  --text-light: #63636b;
+  --border: #e4e4ea;
+
+  --primary: #dc2626;
+  --primary-2: #f43f5e;
+  --primary-3: #f97316;
+
+  --gradient-main: linear-gradient(135deg, var(--primary), var(--primary-2));
+  --gradient-alt: linear-gradient(135deg, var(--primary-3), var(--primary));
+
+  --radius: 14px;
+  --transition: 0.3s ease;
+  --shadow: 0 10px 30px rgba(220, 38, 38, 0.12);
+}
+
+[data-theme="dark"] {
+  --bg: #0e0e12;
+  --bg-alt: #17171d;
+  --surface: #1c1c23;
+  --text: #f2f2f5;
+  --text-light: #a6a6b3;
+  --border: #2c2c36;
+  --shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Poppins', 'Segoe UI', Arial, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.6;
+  overflow-x: hidden;
+  transition: background var(--transition), color var(--transition);
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+ul {
+  list-style: none;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+/* ===================================
+   SCROLL REVEAL (aparecer suave ao rolar a página)
+   [data-reveal] seleciona qualquer elemento com esse atributo no HTML,
+   tipo <div data-reveal>. Ele começa invisível/deslocado; o JS
+   (script.js) adiciona a classe "visible" quando o elemento entra na
+   tela, e a transição abaixo cuida da animação.
+=================================== */
+[data-reveal] {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+
+[data-reveal].visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* data-reveal-delay="1/2/3" atrasa a animação, pra elementos vizinhos
+   (ex: os 4 cards de habilidade) não aparecerem todos ao mesmo tempo. */
+[data-reveal-delay="1"] { transition-delay: 0.1s; }
+[data-reveal-delay="2"] { transition-delay: 0.2s; }
+[data-reveal-delay="3"] { transition-delay: 0.3s; }
+
+/* ===================================
+   BOTÕES
+=================================== */
+.btn {
+  position: relative;
+  display: inline-block;
+  padding: 13px 30px;
+  border-radius: 50px;
+  font-weight: 600;
+  cursor: pointer;
+  border: 2px solid transparent;
+  overflow: hidden;
+  transition: transform var(--transition), box-shadow var(--transition);
+}
+
+.btn-primary {
+  background: var(--gradient-main);
+  background-size: 200% 200%;
+  color: #fff;
+  box-shadow: 0 8px 20px rgba(220, 38, 38, 0.35);
+  animation: gradientShift 4s ease infinite;
+}
+
+.btn-primary:hover {
+  transform: translateY(-3px) scale(1.03);
+  box-shadow: 0 12px 28px rgba(244, 63, 94, 0.4);
+}
+
+.btn-outline {
+  border-color: var(--primary);
+  color: var(--primary);
+  background: transparent;
+}
+
+.btn-outline:hover {
+  background: var(--gradient-main);
+  border-color: transparent;
+  color: #fff;
+  transform: translateY(-3px);
+}
+
+.btn-small {
+  padding: 9px 20px;
+  font-size: 0.9rem;
+}
+
+.btn .ripple {
+  position: absolute;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.6);
+  transform: scale(0);
+  animation: ripple 0.6s linear;
+  pointer-events: none;
+}
+
+/* Anima o círculo branco que aparece quando você clica num botão
+   (criado pelo JS): começa pequeno e transparente-cheio, e cresce
+   3x enquanto desaparece (opacity 0), criando o efeito "ripple". */
+@keyframes ripple {
+  to {
+    transform: scale(3);
+    opacity: 0;
+  }
+}
+
+/* Move o fundo do elemento da esquerda pra direita e volta.
+   Só funciona porque o background é maior que a caixa
+   (background-size: 200% 200%, definido em cada elemento que usa isso),
+   dando a impressão de um gradiente "vivo" se movendo. */
+@keyframes gradientShift {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+/* ===================================
+   HEADER / NAVBAR
+=================================== */
+.header {
+  position: sticky;
+  top: 0;
+  /* Fundo semi-transparente (0.7 = 70% opaco) + backdrop-filter para
+     desfocar o que passa atrás do menu. É o efeito "vidro fosco". */
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+  z-index: 100;
+  transition: box-shadow var(--transition), background var(--transition);
+}
+
+[data-theme="dark"] .header {
+  background: rgba(14, 14, 18, 0.7);
+}
+
+.header.scrolled {
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
+}
+
+.navbar {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 24px;
+}
+
+.logo {
+  font-size: 1.4rem;
+  font-weight: 700;
+}
+
+/* Truque do "texto com gradiente": em vez de cor sólida, o texto vira
+   uma "janela" transparente (color: transparent) que deixa ver o
+   gradiente de fundo só onde as letras estão (background-clip: text). */
+.logo span {
+  background: var(--gradient-main);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.nav-links {
+  display: flex;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+
+.nav-links a {
+  position: relative;
+}
+
+.nav-links a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -4px;
+  width: 0;
+  height: 2px;
+  background: var(--gradient-main);
+  transition: width var(--transition);
+}
+
+.nav-links a:hover::after {
+  width: 100%;
+}
+
+.nav-links a:hover {
+  color: var(--primary);
+}
+
+.theme-toggle,
+.menu-toggle {
+  background: none;
+  border: none;
+  font-size: 1.3rem;
+  cursor: pointer;
+  color: var(--text);
+  transition: transform var(--transition);
+}
+
+.theme-toggle:hover {
+  transform: rotate(20deg) scale(1.1);
+}
+
+.menu-toggle {
+  display: none;
+}
+
+/* ===================================
+   HERO
+=================================== */
+.hero {
+  position: relative;
+  min-height: 90vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 40px 24px;
+  overflow: hidden;
+  background: var(--bg);
+}
+
+/* 3 círculos coloridos e desfocados, só de enfeite atrás do texto do hero.
+   Cada classe tem tamanho, cor e posição próprios, mas os 3 flutuam com
+   a mesma animação "float" (explicada logo abaixo). */
+.blob-1,
+.blob-2,
+.blob-3 {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(70px);
+  opacity: 0.35;
+  z-index: 0;
+  animation: float 10s ease-in-out infinite;
+}
+
+.blob-1 {
+  width: 320px;
+  height: 320px;
+  background: var(--primary);
+  top: -60px;
+  left: -80px;
+}
+
+.blob-2 {
+  width: 380px;
+  height: 380px;
+  background: var(--primary-2);
+  bottom: -100px;
+  right: -100px;
+  animation-delay: 2s;
+}
+
+.blob-3 {
+  width: 260px;
+  height: 260px;
+  background: var(--primary-3);
+  top: 40%;
+  left: 60%;
+  animation-delay: 4s;
+}
+
+/* @keyframes = uma animação com "quadros-chave": você diz como o elemento
+   deve estar em cada % do tempo e o navegador desenha sozinho os quadros
+   do meio. Aqui: sobe/desce e cresce um pouco (efeito de flutuar), e
+   repete para sempre (infinite). Usada pelos 3 círculos acima. */
+@keyframes float {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(30px, -30px) scale(1.1); }
+}
+
+.hero-content {
+  position: relative;
+  z-index: 1;
+  max-width: 650px;
+}
+
+.hero-greeting {
+  color: var(--primary);
+  font-weight: 600;
+  margin-bottom: 8px;
+  opacity: 0;
+  animation: fadeInUp 0.8s ease forwards;
+}
+
+.hero-name {
+  font-size: 3.2rem;
+  font-weight: 800;
+  margin-bottom: 8px;
+  background: var(--gradient-main);
+  background-size: 200% 200%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: fadeInUp 0.8s ease 0.1s forwards, gradientShift 5s ease infinite;
+  opacity: 0;
+}
+
+.hero-role {
+  font-size: 1.4rem;
+  color: var(--text-light);
+  font-weight: 500;
+  margin-bottom: 20px;
+  min-height: 1.4em;
+  opacity: 0;
+  animation: fadeInUp 0.8s ease 0.2s forwards;
+}
+
+/* Esse "cursor" é a barrinha que pisca ao lado do texto digitado
+   pelo JS. Não é digitação de verdade, é só uma borda lateral
+   (border-right) que a animação abaixo some e volta. */
+.hero-role .cursor {
+  border-right: 2px solid var(--primary);
+  animation: blink 0.8s step-end infinite;
+}
+
+/* Faz a borda (o "cursor" acima) sumir na metade do tempo e voltar,
+   dando a impressão de estar piscando. */
+@keyframes blink {
+  50% { border-color: transparent; }
+}
+
+.hero-text {
+  color: var(--text-light);
+  margin-bottom: 28px;
+  opacity: 0;
+  animation: fadeInUp 0.8s ease 0.3s forwards;
+}
+
+.hero-buttons {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  flex-wrap: wrap;
+  opacity: 0;
+  animation: fadeInUp 0.8s ease 0.4s forwards;
+}
+
+/* Faz o elemento surgir: começa invisível e 24px mais baixo,
+   termina visível e no lugar certo. Usada nos textos do hero,
+   um de cada vez (por isso cada um tem um "delay" diferente ali em cima). */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ===================================
+   SEÇÕES GERAIS
+=================================== */
+.section {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 90px 24px;
+}
+
+.section-alt {
+  background: var(--bg-alt);
+  max-width: 100%;
+}
+
+.section-title {
+  text-align: center;
+  font-size: 2.1rem;
+  font-weight: 700;
+  margin-bottom: 52px;
+  position: relative;
+}
+
+.section-title::after {
+  content: "";
+  display: block;
+  width: 70px;
+  height: 4px;
+  background: var(--gradient-main);
+  margin: 14px auto 0;
+  border-radius: 2px;
+}
+
+/* ===================================
+   SOBRE
+=================================== */
+.about-content {
+  display: flex;
+  align-items: center;
+  gap: 48px;
+  flex-wrap: wrap;
+}
+
+.about-image {
+  flex: 1;
+  min-width: 240px;
+}
+
+.image-placeholder {
+  aspect-ratio: 1 / 1;
+  width: 100%;
+  /* object-fit: cover = a foto preenche o quadrado todo sem esticar,
+     cortando as bordas que sobrarem (igual a foto de perfil do Instagram) */
+  object-fit: cover;
+  background: var(--gradient-main);
+  background-size: 200% 200%;
+  animation: gradientShift 6s ease infinite;
+  border-radius: var(--radius);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-weight: 600;
+  box-shadow: var(--shadow);
+}
+
+.about-text {
+  flex: 2;
+  min-width: 280px;
+}
+
+.about-text p {
+  margin-bottom: 16px;
+  color: var(--text-light);
+}
+
+/* ===================================
+   HABILIDADES
+=================================== */
+.skills-group-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--primary);
+  margin: 40px 0 16px;
+}
+
+.skills-group-title:first-of-type {
+  margin-top: 0;
+}
+
+.skills-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 24px;
+}
+
+.skill-card {
+  background: var(--surface);
+  padding: 24px;
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  transition: transform var(--transition), box-shadow var(--transition);
+}
+
+.skill-card:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--shadow);
+}
+
+.skill-bar {
+  margin-top: 12px;
+  height: 9px;
+  background: var(--border);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.skill-bar span {
+  display: block;
+  height: 100%;
+  width: 0; /* começa vazia; o JS troca esse 0 pela % real quando a barra aparece na tela */
+  background: var(--gradient-main);
+  border-radius: 4px;
+  /* cubic-bezier é só uma curva de velocidade custom: em vez de andar
+     no ritmo constante, ela acelera rápido no início e desacelera
+     suave no final (mais "elegante" que o "ease" padrão). */
+  transition: width 1.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* ===================================
+   PROJETOS
+=================================== */
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 28px;
+}
+
+.project-card {
+  position: relative;
+  border-radius: var(--radius);
+  overflow: hidden;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+
+.project-card:hover {
+  transform: translateY(-10px);
+  box-shadow: var(--shadow);
+}
+
+.project-image {
+  position: relative;
+  aspect-ratio: 16 / 9;
+  background: #000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-weight: 600;
+  overflow: hidden;
+}
+
+.project-image::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -60%;
+  width: 40%;
+  height: 100%;
+  background: linear-gradient(120deg, transparent, rgba(255, 255, 255, 0.35), transparent);
+  transform: skewX(-20deg);
+  transition: left 0.7s ease;
+}
+
+.project-card:hover .project-image::after {
+  left: 130%;
+}
+
+.project-info {
+  padding: 20px;
+}
+
+.project-info p {
+  color: var(--text-light);
+  margin: 10px 0 16px;
+}
+
+.project-links {
+  display: flex;
+  gap: 12px;
+}
+
+/* ===================================
+   CONTATO
+=================================== */
+.contact-form {
+  max-width: 600px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.form-group label {
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+.form-group input,
+.form-group textarea {
+  padding: 12px 14px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--surface);
+  color: var(--text);
+  font-family: inherit;
+  resize: vertical;
+  transition: border-color var(--transition), box-shadow var(--transition);
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.15);
+}
+
+/* ===================================
+   FOOTER
+=================================== */
+.footer {
+  text-align: center;
+  padding: 40px 24px;
+  border-top: 1px solid var(--border);
+  color: var(--text-light);
+}
+
+.social-links {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin-bottom: 16px;
+}
+
+.social-links a {
+  transition: color var(--transition), transform var(--transition);
+  display: inline-block;
+}
+
+.social-links a:hover {
+  color: var(--primary);
+  transform: translateY(-3px);
+}
+
+/* ===================================
+   BOTÃO VOLTAR AO TOPO
+=================================== */
+.back-to-top {
+  position: fixed;
+  right: 24px;
+  bottom: 24px;
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  border: none;
+  background: var(--gradient-main);
+  color: #fff;
+  font-size: 1.2rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 8px 20px rgba(220, 38, 38, 0.35);
+  opacity: 0;
+  transform: translateY(20px);
+  pointer-events: none;
+  transition: opacity var(--transition), transform var(--transition);
+  z-index: 90;
+}
+
+.back-to-top.visible {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+.back-to-top:hover {
+  transform: translateY(-4px);
+}
+
+/* ===================================
+   RESPONSIVO
+=================================== */
+@media (max-width: 768px) {
+  .menu-toggle {
+    display: block;
+  }
+
+  .nav-links {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: var(--bg);
+    flex-direction: column;
+    padding: 20px 24px;
+    border-bottom: 1px solid var(--border);
+    display: none;
+  }
+
+  .nav-links.active {
+    display: flex;
+  }
+
+  .hero-name {
+    font-size: 2.2rem;
+  }
+}
+
+/* Quem ativou "reduzir movimento" nas configurações do sistema/navegador
+   (por enjoo, epilepsia etc.) cai aqui: todas as animações e transições
+   ficam quase instantâneas (0.01ms), sem remover o efeito final. */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

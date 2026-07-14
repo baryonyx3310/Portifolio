@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Felipe Felicetti | Portfólio</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+  <!-- ===== HEADER / NAV ===== -->
+  <header class="header">
+    <nav class="navbar">
+      <a href="index.html" class="logo">Felipe<span>Felicetti</span></a>
+
+      <ul class="nav-links" id="navLinks">
+        <li><a href="index.html#inicio">Início</a></li>
+        <li><a href="index.html#sobre">Sobre</a></li>
+        <li><a href="index.html#projetos">Projetos</a></li>
+        <li><a href="index.html#habilidades">Habilidades</a></li>
+        <li><a href="index.html#contato">Contato</a></li>
+      </ul>
+
+      <button class="theme-toggle" id="themeToggle" aria-label="Alternar tema">🌙</button>
+      <button class="menu-toggle" id="menuToggle" aria-label="Abrir menu">☰</button>
+    </nav>
+  </header>
+
+  <!-- ===== HERO ===== -->
+  <section id="inicio" class="hero">
+    <div class="blob-1"></div>
+    <div class="blob-2"></div>
+    <div class="blob-3"></div>
+    <div class="hero-content">
+      <p class="hero-greeting">Olá, eu sou</p>
+      <h1 class="hero-name">Felipe Felicetti</h1>
+      <h2 class="hero-role" data-roles="Desenvolvedor | Entusiasta de Front-end | Criador Digital"></h2>
+      <p class="hero-text">
+        Sou estudante de desenvolvimento de software, com interesse em programação, banco de dados e desenvolvimento de aplicações. Busco aprimorar meus conhecimentos por meio de projetos práticos e adquirir experiência profissional na área de tecnologia.
+      </p>
+      <div class="hero-buttons">
+        <a href="#projetos" class="btn btn-primary">Ver Projetos</a>
+        <a href="#contato" class="btn btn-outline">Fale Comigo</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== SOBRE ===== -->
+  <section id="sobre" class="section">
+    <h2 class="section-title" data-reveal>Sobre Mim</h2>
+    <div class="about-content">
+      <div class="about-image" data-reveal>
+        <img class="image-placeholder" src="img/eu.jpg" alt="Foto de Felipe Felicetti">
+      </div>
+      <div class="about-text" data-reveal data-reveal-delay="1">
+        <p>
+          Des de pequeno, sempre fui fascinado por tecnologia e programação. E quando ingressei no ensino medio, tive
+          oportunidade de entrar no curso tecnico de informatica da escola tecnica Mesquita, onde desenvolvi habilidades
+          em diversas linguagens de programação e frameworks, incluindo web.
+        </p>
+        <p>
+          "Curioso por natureza, aprendendo um pouco todo dia"
+        </p>
+        <a href="#contato" class="btn btn-primary">Entre em Contato</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== HABILIDADES ===== -->
+  <section id="habilidades" class="section section-alt">
+    <h2 class="section-title" data-reveal>Habilidades</h2>
+    <!-- Front-end e back-end separados: comparar "% de HTML" com "% de Java"
+         faz mais sentido do que misturar tudo numa lista só. -->
+    <h3 class="skills-group-title" data-reveal>Front-end</h3>
+    <div class="skills-grid">
+      <div class="skill-card" data-reveal>
+        <h3>HTML</h3>
+        <div class="skill-bar"><span data-percent="90"></span></div>
+      </div>
+      <div class="skill-card" data-reveal data-reveal-delay="1">
+        <h3>CSS</h3>
+        <div class="skill-bar"><span data-percent="80"></span></div>
+      </div>
+      <div class="skill-card" data-reveal data-reveal-delay="2">
+        <h3>JavaScript</h3>
+        <div class="skill-bar"><span data-percent="60"></span></div>
+      </div>
+    </div>
+
+    <h3 class="skills-group-title" data-reveal>Back-end</h3>
+    <div class="skills-grid">
+      <div class="skill-card" data-reveal>
+        <h3>MySQL</h3>
+        <div class="skill-bar"><span data-percent="65"></span></div>
+      </div>
+      <div class="skill-card" data-reveal data-reveal-delay="1">
+        <h3>C/C++</h3>
+        <div class="skill-bar"><span data-percent="55"></span></div>
+      </div>
+      <div class="skill-card" data-reveal data-reveal-delay="2">
+        <h3>Java</h3>
+        <div class="skill-bar"><span data-percent="40"></span></div>
+      </div>
+    </div>
+
+    <h3 class="skills-group-title" data-reveal>Outras</h3>
+    <div class="skills-grid">
+      <div class="skill-card" data-reveal>
+        <h3>Criatividade</h3>
+        <div class="skill-bar"><span data-percent="85"></span></div>
+      </div>
+      <div class="skill-card" data-reveal data-reveal-delay="1">
+        <h3>Proatividade</h3>
+        <div class="skill-bar"><span data-percent="70"></span></div>
+      </div>
+      <div class="skill-card" data-reveal data-reveal-delay="2">
+        <h3>Organização</h3>
+        <div class="skill-bar"><span data-percent="75"></span></div>
+      </div>
+      <div class="skill-card" data-reveal data-reveal-delay="3">
+        <h3>Dedicação</h3>
+        <div class="skill-bar"><span data-percent="90"></span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== PROJETOS ===== -->
+  <section id="projetos" class="section">
+    <h2 class="section-title" data-reveal>Projetos</h2>
+    <div class="projects-grid">
+      <div class="project-card" data-reveal>
+        <img src="img/SAV.png" alt="Projeto SAV">
+        <div class="project-info">
+          <h3>Projeto SAV</h3>
+          <p>O SAV é um software de inteligência artificial para auxiliar leigos e pessoas com deficiência para que
+            tenham acessibilidade com a tecnologia.</p>
+        </div>
+      </div>
+
+      <div class="project-card" data-reveal data-reveal-delay="1">
+        <img src="" alt="">
+        <div class="project-image">Projeto Kardashev</div>
+        <div class="project-info">
+          <h3>Projeto Kardashev</h3>
+          <p>É um mod para minecraft java, esta no papel e só possui alguns conceitos documentados.</p>
+        </div>
+      </div>
+
+      <div class="project-card" data-reveal data-reveal-delay="2">
+        <img src="" alt="">
+        <div class="project-image">Vazio</div>
+        <div class="project-info">
+          <h3></h3>
+          <p></p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== CONTATO ===== -->
+  <section id="contato" class="section section-alt">
+    <h2 class="section-title" data-reveal>Contato</h2>
+    <form class="contact-form" id="contactForm" data-reveal>
+      <div class="form-group">
+        <label for="nome">Nome</label>
+        <input type="text" id="nome" name="nome" placeholder="Seu nome" required>
+      </div>
+      <div class="form-group">
+        <label for="email">E-mail</label>
+        <input type="email" id="email" name="email" placeholder="seu@email.com" required>
+      </div>
+      <div class="form-group">
+        <label for="mensagem">Mensagem</label>
+        <textarea id="mensagem" name="mensagem" rows="5" placeholder="Escreva sua mensagem..." required></textarea>
+      </div>
+      <button type="submit" class="btn btn-primary">Enviar Mensagem</button>
+    </form>
+  </section>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="footer">
+    <div class="social-links">
+      <a href="https://github.com/baryonyx3310" target="_blank">GitHub</a>
+      <a href="https://www.linkedin.com" target="_blank">LinkedIn</a>
+      <a href="https://www.instagram.com/bary.onyx0/" target="_blank">Instagram</a>
+    </div>
+    <p>&copy; <span id="year">2026</span> Felipe Felicetti. Todos os direitos reservados.</p>
+  </footer>
+
+  <button class="back-to-top" id="backToTop" aria-label="Voltar ao topo">↑</button>
+
+  <script src="js/script.js"></script>
+</body>
+
+</html>
