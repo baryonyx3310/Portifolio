@@ -19,7 +19,7 @@ const root = document.documentElement;
 function applyTheme(theme) {
   root.setAttribute('data-theme', theme);
   if (themeToggle) {
-    themeToggle.textContent = theme === 'dark' ? '☀️' : '🌙';
+    themeToggle.textContent = theme === 'dark' ? 'Claro' : 'Escuro';
   }
   localStorage.setItem('theme', theme);
 }
